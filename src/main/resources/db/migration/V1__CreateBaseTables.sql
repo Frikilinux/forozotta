@@ -1,21 +1,20 @@
-create table users(
-    id bigint not null auto_increment,
-    name varchar(100) not null,
-    email varchar(100) not null unique,
-    password varchar(100) not null,
+CREATE TABLE users(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
 
-    primary key(id)
+    PRIMARY KEY(id)
 );
 
-create table topics(
-    id bigint not null auto_increment,
-    title varchar(100) not null,
-    message varchar(255) not null,
-    createdAt datetime not null,
-    author_id bigint not null,
-    status tinyint not null,
+CREATE TABLE topics(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    author_id BIGINT NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT FALSE,
 
-    primary key(id),
-
-    constraint fk_topics_author_id foreign key(author_id) references users(id)
+    PRIMARY KEY(id),
+    CONSTRAINT fk_topics_author_id fOREIGN KEY(author_id) REFERENCES users(id)
 );
