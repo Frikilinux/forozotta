@@ -3,6 +3,7 @@ CREATE TABLE users(
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
+    active BOOLEAN NOT NULL,
 
     PRIMARY KEY(id)
 );
@@ -10,7 +11,7 @@ CREATE TABLE users(
 CREATE TABLE topics(
     id BIGINT NOT NULL AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
-    message VARCHAR(255) NOT NULL,
+    message VARCHAR(500) NOT NULL,
     createdAt DATETIME NOT NULL,
     author_id BIGINT NOT NULL,
     status BOOLEAN NOT NULL DEFAULT FALSE,

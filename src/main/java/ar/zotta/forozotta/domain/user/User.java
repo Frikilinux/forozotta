@@ -24,5 +24,13 @@ public class User {
   private String name;
   private String email;
   private String password;
+  private Boolean active = true;
   // private String profiles;
+
+  public User(RegisterUserDTO registerUserDTO) {
+    this.name = registerUserDTO.name();
+    this.email = registerUserDTO.email();
+    this.password = registerUserDTO.password();
+    // this.active = true;
+  }
 }
