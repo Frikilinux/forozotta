@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.zotta.forozotta.domain.user.RegisterUserDTO;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserRepository;
+import ar.zotta.forozotta.domain.user.UserResponseDTO;
 import jakarta.validation.Valid;
 
 @RestController

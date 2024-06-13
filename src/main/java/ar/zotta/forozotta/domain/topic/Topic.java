@@ -28,12 +28,20 @@ public class Topic {
   private String title;
   private String message;
   private LocalDateTime createdAt;
-  private Boolean status;
+  // private Boolean status;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author_id")
   private User author;
 
+  public Topic(String title, String message, User author) {
+    this.title = title;
+    this.message = message;
+    this.author = author;
+    this.createdAt = LocalDateTime.now();
+  }
+
   // private String curso;
   // private String response;
+
 }
