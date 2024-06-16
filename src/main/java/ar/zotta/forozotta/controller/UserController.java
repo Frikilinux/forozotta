@@ -11,6 +11,7 @@ import ar.zotta.forozotta.domain.user.RegisterUserDTO;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserRepository;
 import ar.zotta.forozotta.domain.user.UserResponseDTO;
+import ar.zotta.forozotta.domain.user.UserService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -18,12 +19,13 @@ import jakarta.validation.Valid;
 public class UserController {
 
   @Autowired
-  private UserRepository userRepository;
+  private UserService userService;
 
   @PostMapping
   public ResponseEntity<UserResponseDTO> registerUser(@RequestBody @Valid RegisterUserDTO registerUserDTO) {
 
-    User user = userRepository.save(new User(registerUserDTO));
+    User user = userService.registerUser(registerUserDTO);
+
     UserResponseDTO userResponse = new UserResponseDTO(user.getId(), user.getName(), user.getEmail());
 
     return ResponseEntity.status(201).body(userResponse);
