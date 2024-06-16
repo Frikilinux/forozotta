@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import jakarta.validation.constraints.Email;
-
 @Service
 public class UserService {
   @Autowired
@@ -14,19 +12,23 @@ public class UserService {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  public User registerUser(RegisterUserDTO registerUserDTO) {
+  public User registerUser(RegisterUserDto registerUserDto) {
 
-    if (userRepository.findByEmail(registerUserDTO.email()).isPresent()) {
+    if (userRepository.findByEmail(registerUserDto.email()).isPresent()) {
       throw new RuntimeException("El email ya existe");
     }
 
-    User user = new User(registerUserDTO);
+    User user = new User(registerUserDto);
 
     // Reemplaza el password recibido con uno encryptado
-    user.setPassword(passwordEncoder.encode(registerUserDTO.password()));
+    user.setPassword(passwordEncoder.encode(registerUserDto.password()));
 
     return userRepository.save(user);
 
+  }
+
+  public UserResponseDto userResponse(User user) {
+    return new UserResponseDto(user.getId(), user.getName(), user.getEmail());
   }
 
 }

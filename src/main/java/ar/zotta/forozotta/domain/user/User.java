@@ -31,21 +31,20 @@ public class User implements UserDetails {
   private String name;
   private String email;
   private String password;
-  
+
   private Boolean active = true;
   // private String profiles;
-  
-  public User(RegisterUserDTO registerUserDTO) {
-    this.name = registerUserDTO.name();
-    this.email = registerUserDTO.email();
-    // this.password = registerUserDTO.password();
+
+  public User(RegisterUserDto registerUserDto) {
+    this.name = registerUserDto.name();
+    this.email = registerUserDto.email();
+    // this.password = registerUserDto.password();
     // this.active = true;
   }
-  
+
   public void setPassword(String password) {
     this.password = password;
   }
-  
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

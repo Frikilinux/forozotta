@@ -17,7 +17,7 @@ public class TopicService {
   @Autowired
   UserRepository userRepository;
 
-  public Topic createTopic(CreateTopicDTO topic) {
+  public Topic createTopic(CreateTopicDto topic) {
     Optional<User> user = userRepository.findById(topic.authorId());
 
     if (user.isEmpty()) {

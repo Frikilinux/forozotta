@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.zotta.forozotta.domain.topic.CreateTopicDTO;
+import ar.zotta.forozotta.domain.topic.CreateTopicDto;
 import ar.zotta.forozotta.domain.topic.Topic;
-import ar.zotta.forozotta.domain.topic.TopicResponseDTO;
+import ar.zotta.forozotta.domain.topic.TopicResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicService;
 import ar.zotta.forozotta.domain.user.User;
-import ar.zotta.forozotta.domain.user.UserResponseDTO;
+import ar.zotta.forozotta.domain.user.UserResponseDto;
 import jakarta.validation.Valid;
 
 @RestController
@@ -23,13 +23,13 @@ public class TopicController {
   TopicService topicService;
 
   @PostMapping
-  public ResponseEntity<TopicResponseDTO> postTopic(@RequestBody @Valid CreateTopicDTO createTopicDTO) {
+  public ResponseEntity<TopicResponseDto> postTopic(@RequestBody @Valid CreateTopicDto createTopicDTO) {
 
     Topic res = topicService.createTopic(createTopicDTO);
     User author = res.getAuthor();
 
-    TopicResponseDTO topicResponseDTO = new TopicResponseDTO(res.getId(), res.getTitle(), res.getMessage(),
-        new UserResponseDTO(author.getId(), author.getName(), author.getEmail()), res.getCreatedAt());
+    TopicResponseDto topicResponseDTO = new TopicResponseDto(res.getId(), res.getTitle(), res.getMessage(),
+        new UserResponseDto(author.getId(), author.getName(), author.getEmail()), res.getCreatedAt());
 
     return ResponseEntity.status(201).body(topicResponseDTO);
   }

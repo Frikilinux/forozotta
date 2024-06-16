@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.zotta.forozotta.domain.user.RegisterUserDTO;
+import ar.zotta.forozotta.domain.user.RegisterUserDto;
 import ar.zotta.forozotta.domain.user.User;
-import ar.zotta.forozotta.domain.user.UserRepository;
-import ar.zotta.forozotta.domain.user.UserResponseDTO;
+import ar.zotta.forozotta.domain.user.UserResponseDto;
 import ar.zotta.forozotta.domain.user.UserService;
 import jakarta.validation.Valid;
 
@@ -22,11 +21,11 @@ public class UserController {
   private UserService userService;
 
   @PostMapping
-  public ResponseEntity<UserResponseDTO> registerUser(@RequestBody @Valid RegisterUserDTO registerUserDTO) {
+  public ResponseEntity<UserResponseDto> registerUser(@RequestBody @Valid RegisterUserDto registerUserDto) {
 
-    User user = userService.registerUser(registerUserDTO);
+    User user = userService.registerUser(registerUserDto);
 
-    UserResponseDTO userResponse = new UserResponseDTO(user.getId(), user.getName(), user.getEmail());
+    UserResponseDto userResponse = userService.userResponse(user);
 
     return ResponseEntity.status(201).body(userResponse);
   }
