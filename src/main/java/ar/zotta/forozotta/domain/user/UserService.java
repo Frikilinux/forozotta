@@ -27,8 +27,4 @@ public class UserService {
 
   }
 
-  public UserResponseDto userResponse(User user) {
-    return new UserResponseDto(user);
-  }
-
 }

@@ -25,7 +25,7 @@ public class UserController {
 
     User user = userService.registerUser(registerUserDto);
 
-    UserResponseDto userResponse = userService.userResponse(user);
+    UserResponseDto userResponse = new UserResponseDto(user);
 
     return ResponseEntity.status(201).body(userResponse);
   }

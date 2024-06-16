@@ -28,17 +28,18 @@ public class TopicController {
   UserService userService;
 
   @PostMapping
-  public ResponseEntity<TopicResponseDto> postTopic(@RequestBody @Valid CreateTopicDto createTopicDTO) {
+  public ResponseEntity<TopicResponseDto> postTopic(@RequestBody @Valid CreateTopicDto createTopicDto) {
 
-    Topic topic = topicService.createTopic(createTopicDTO);
+    Topic topic = topicService.createTopic(createTopicDto);
 
-    TopicResponseDto topicResponseDTO = new TopicResponseDto(topic);
+    TopicResponseDto topicResponseDto = new TopicResponseDto(topic);
 
-    return ResponseEntity.status(201).body(topicResponseDTO);
+    return ResponseEntity.status(201).body(topicResponseDto);
   }
 
   @GetMapping
   public ResponseEntity<List<TopicResponseDto>> getTopics() {
+
     List<Topic> topics = topicService.getTopics();
 
     return ResponseEntity.ok(topics.stream().map(TopicResponseDto::new).toList());
