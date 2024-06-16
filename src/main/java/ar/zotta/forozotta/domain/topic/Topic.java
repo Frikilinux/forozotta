@@ -34,6 +34,9 @@ public class Topic {
   @JoinColumn(name = "author_id")
   private User author;
 
+  public Topic() {
+  }
+
   public Topic(String title, String message, User author) {
     this.title = title;
     this.message = message;

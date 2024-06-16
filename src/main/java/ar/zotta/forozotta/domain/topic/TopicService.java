@@ -1,5 +1,6 @@
 package ar.zotta.forozotta.domain.topic;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class TopicService {
     Topic response = topicRepository.save(new Topic(topic.title(), topic.message(), user.get()));
 
     return response;
+  }
+
+  public List<Topic> getTopics() {
+    return topicRepository.findAll();
   }
 
 }

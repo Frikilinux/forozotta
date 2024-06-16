@@ -28,7 +28,7 @@ public class UserService {
   }
 
   public UserResponseDto userResponse(User user) {
-    return new UserResponseDto(user.getId(), user.getName(), user.getEmail());
+    return new UserResponseDto(user);
   }
 
 }
