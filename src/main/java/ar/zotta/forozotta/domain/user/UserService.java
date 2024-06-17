@@ -1,8 +1,15 @@
 package ar.zotta.forozotta.domain.user;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import ar.zotta.forozotta.infra.security.TokenService;
 
 @Service
 public class UserService {
@@ -12,9 +19,15 @@ public class UserService {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Autowired
+  private AuthenticationManager authenticationManager;
+
+  @Autowired
+  private TokenService tokenService;
+
   public User registerUser(RegisterUserDto registerUserDto) {
 
-    if (userRepository.findByEmail(registerUserDto.email()).isPresent()) {
+    if (finUser(registerUserDto.email()).isPresent()) {
       throw new RuntimeException("El email ya existe");
     }
 
@@ -25,6 +38,20 @@ public class UserService {
 
     return userRepository.save(user);
 
+  }
+
+  public void userAuth(UserLoginDto userLoginDto) {
+    Authentication authToken = new UsernamePasswordAuthenticationToken(userLoginDto.email(), userLoginDto.password());
+    var userAuthenticated = authenticationManager.authenticate(authToken);
+
+    var jwtToken = tokenService.generateToken((User) userAuthenticated.getPrincipal());
+
+    System.out.println(jwtToken);
+
+  }
+
+  private Optional<User> finUser(String email) {
+    return userRepository.findUserByEmail(email);
   }
 
 }
