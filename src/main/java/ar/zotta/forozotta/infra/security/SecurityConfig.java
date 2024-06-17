@@ -1,4 +1,4 @@
-package ar.zotta.forozotta.domain.infra.security;
+package ar.zotta.forozotta.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
