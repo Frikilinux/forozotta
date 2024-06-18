@@ -1,5 +1,7 @@
 package ar.zotta.forozotta.domain.user;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ar.zotta.forozotta.infra.security.AuthResponseDto;
 import ar.zotta.forozotta.infra.security.TokenService;
 
 @Service
@@ -40,13 +43,20 @@ public class UserService {
 
   }
 
-  public void userAuth(UserLoginDto userLoginDto) {
-    Authentication authToken = new UsernamePasswordAuthenticationToken(userLoginDto.email(), userLoginDto.password());
-    var userAuthenticated = authenticationManager.authenticate(authToken);
+  public AuthResponseDto userAuth(UserLoginDto userLoginDto) {
+    Authentication authRequestToken = new UsernamePasswordAuthenticationToken(userLoginDto.email(),
+        userLoginDto.password());
 
-    var jwtToken = tokenService.generateToken((User) userAuthenticated.getPrincipal());
+    Authentication userAuthenticated = authenticationManager.authenticate(authRequestToken);
 
-    System.out.println(jwtToken);
+    String jwtToken = tokenService.generateToken((User) userAuthenticated.getPrincipal());
+    User user = (User) userAuthenticated.getPrincipal();
+
+    Date espiresAt = tokenService.decodedJWT(jwtToken).getExpiresAt();
+
+    return new AuthResponseDto(user, jwtToken, espiresAt);
+
+    // System.out.println(jwtToken);
 
   }
 

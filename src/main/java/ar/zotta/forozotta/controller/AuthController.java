@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.zotta.forozotta.domain.user.UserLoginDto;
 import ar.zotta.forozotta.domain.user.UserService;
+import ar.zotta.forozotta.infra.security.AuthResponseDto;
 import jakarta.validation.Valid;
 
 @RestController
@@ -19,11 +20,11 @@ public class AuthController {
   private UserService userService;
 
   @PostMapping
-  public ResponseEntity<String> userAuth(@RequestBody @Valid UserLoginDto userLoginDto) {
+  public ResponseEntity<AuthResponseDto> userAuth(@RequestBody @Valid UserLoginDto userLoginDto) {
 
-    userService.userAuth(userLoginDto);
+    AuthResponseDto response = userService.userAuth(userLoginDto);
 
-    return ResponseEntity.ok("OK");
+    return ResponseEntity.ok(response);
 
   }
 

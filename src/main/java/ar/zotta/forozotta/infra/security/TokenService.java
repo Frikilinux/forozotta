@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 import ar.zotta.forozotta.domain.user.User;
 
@@ -34,6 +35,10 @@ public class TokenService {
     } catch (Exception e) {
       throw new RuntimeException("ERROR EN EL TOKEN");
     }
+  }
+
+  public DecodedJWT decodedJWT(String token) {
+    return JWT.decode(token);
   }
 
   private Instant genExpDate() {
