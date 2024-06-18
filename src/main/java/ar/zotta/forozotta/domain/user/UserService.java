@@ -1,6 +1,5 @@
 package ar.zotta.forozotta.domain.user;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
@@ -52,12 +51,9 @@ public class UserService {
     String jwtToken = tokenService.generateToken((User) userAuthenticated.getPrincipal());
     User user = (User) userAuthenticated.getPrincipal();
 
-    Date espiresAt = tokenService.decodedJWT(jwtToken).getExpiresAt();
+    Date expiresAt = tokenService.decodeJwt(jwtToken).getExpiresAt();
 
-    return new AuthResponseDto(user, jwtToken, espiresAt);
-
-    // System.out.println(jwtToken);
-
+    return new AuthResponseDto(user, jwtToken, expiresAt);
   }
 
   private Optional<User> finUser(String email) {

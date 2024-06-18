@@ -20,6 +20,10 @@ public class TokenService {
   private String jwtSecret;
 
   public String generateToken(User user) {
+    Instant expDate = LocalDateTime.now(ZoneOffset.UTC)
+        .plusMinutes(5)
+        .toInstant(ZoneOffset.UTC);
+
     try {
       Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
 
@@ -27,7 +31,7 @@ public class TokenService {
           .withIssuer("ZOTTA Inc.")
           .withSubject(user.getUsername())
           .withClaim("id", user.getId())
-          .withExpiresAt(genExpDate())
+          .withExpiresAt(expDate)
           .sign(algorithm);
 
       return token;
@@ -37,12 +41,8 @@ public class TokenService {
     }
   }
 
-  public DecodedJWT decodedJWT(String token) {
+  public DecodedJWT decodeJwt(String token) {
     return JWT.decode(token);
-  }
-
-  private Instant genExpDate() {
-    return LocalDateTime.now().plusMinutes(5).toInstant(ZoneOffset.ofHours(0));
   }
 
 }
