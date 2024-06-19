@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import ar.zotta.forozotta.domain.user.User;
@@ -43,25 +44,29 @@ public class TokenService {
   }
 
   public String getSubject(String token) {
-        if (token == null) {
-            throw new RuntimeException();
-        }
-        DecodedJWT verifier = null;
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(jwtSecret); // validando firma
-            verifier = JWT.require(algorithm)
-                    .withIssuer("voll med")
-                    .build()
-                    .verify(token);
-            verifier.getSubject();
-        } catch (JWTVerificationException exception) {
-            System.out.println(exception.toString());
-        }
-        if (verifier.getSubject() == null) {
-            throw new RuntimeException("Verifier invalido");
-        }
-        return verifier.getSubject();
+    if (token == null) {
+      throw new RuntimeException();
     }
+    DecodedJWT verifier = null;
+    try {
+      Algorithm algorithm = Algorithm.HMAC256(jwtSecret); // validando firma
+      verifier = JWT.require(algorithm)
+          // .withIssuer("ZOTTA Inc.")
+          .build()
+          .verify(token);
+      verifier.getSubject();
+    } catch (SignatureVerificationException e) {
+      System.out.println("Firma inválida");
+    } catch (JWTVerificationException exception) {
+      System.out.println(exception.toString());
+    }
+
+    if (verifier == null) {
+      System.out.println("Verifier invalido");
+      return null;
+    }
+    return verifier.getSubject();
+  }
 
   public DecodedJWT decodeJwt(String token) {
     return JWT.decode(token);
