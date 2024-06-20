@@ -3,8 +3,10 @@ package ar.zotta.forozotta.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,15 @@ public class TopicController {
     List<Topic> topics = topicService.getTopics();
 
     return ResponseEntity.ok(topics.stream().map(TopicResponseDto::new).toList());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<TopicResponseDto> getTopicById(@PathVariable Long id) {
+
+    Topic topic = topicService.getTopicById(id);
+
+    return ResponseEntity.ok(new TopicResponseDto(topic));
+
   }
 
 }

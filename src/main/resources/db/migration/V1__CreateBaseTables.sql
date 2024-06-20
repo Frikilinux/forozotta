@@ -12,10 +12,10 @@ CREATE TABLE topics(
     id BIGINT NOT NULL AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
     message VARCHAR(500) NOT NULL,
-    createdAt DATETIME NOT NULL,
+    created_at DATETIME NOT NULL,
     author_id BIGINT NOT NULL,
     status BOOLEAN NOT NULL DEFAULT FALSE,
 
     PRIMARY KEY(id),
-    CONSTRAINT fk_topics_author_id fOREIGN KEY(author_id) REFERENCES users(id)
+    CONSTRAINT fk_topics_author_id FOREIGN KEY(author_id) REFERENCES users(id)
 );

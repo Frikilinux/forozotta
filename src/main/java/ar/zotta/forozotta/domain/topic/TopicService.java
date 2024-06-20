@@ -34,4 +34,8 @@ public class TopicService {
     return topicRepository.findAll();
   }
 
+  public Topic getTopicById(Long id) {
+    return topicRepository.getTopicById(id);
+  }
+
 }
