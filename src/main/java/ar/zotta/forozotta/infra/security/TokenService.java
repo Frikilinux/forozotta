@@ -23,7 +23,7 @@ public class TokenService {
 
   public String generateToken(User user) {
     Instant expDate = LocalDateTime.now(ZoneOffset.UTC)
-        .plusMinutes(5)
+        .plusMinutes(20)
         .toInstant(ZoneOffset.UTC);
 
     try {

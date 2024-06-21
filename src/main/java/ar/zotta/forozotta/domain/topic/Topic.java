@@ -28,6 +28,7 @@ public class Topic {
   private String title;
   private String message;
   private LocalDateTime createdAt;
+  private LocalDateTime modifiedAt;
   // private Boolean status;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -42,8 +43,18 @@ public class Topic {
     this.message = message;
     this.author = author;
     this.createdAt = LocalDateTime.now();
+    this.modifiedAt = LocalDateTime.now();
   }
 
+  public void updateTopic(UpdateTopicDto updateTopicDto) {
+    if (updateTopicDto.title() != null) {
+      this.title = updateTopicDto.title();
+    }
+    if (updateTopicDto.message() != null) {
+      this.message = updateTopicDto.message();
+    }
+    this.modifiedAt = LocalDateTime.now();
+  }
   // private String curso;
   // private String response;
 

@@ -13,6 +13,7 @@ CREATE TABLE topics(
     title VARCHAR(100) NOT NULL,
     message VARCHAR(500) NOT NULL,
     created_at DATETIME NOT NULL,
+    modified_at DATETIME NOT NULL,
     author_id BIGINT NOT NULL,
     status BOOLEAN NOT NULL DEFAULT FALSE,
 

@@ -35,7 +35,23 @@ public class TopicService {
   }
 
   public Topic getTopicById(Long id) {
-    return topicRepository.getTopicById(id);
+    Optional<Topic> topic = topicRepository.getTopicById(id);
+
+    if (topic.isEmpty()) {
+      throw new RuntimeException("Topic no encontrado");
+    }
+    return topic.get();
   }
+  
+  // public Topic updateTopic(Long id, UpdateTopicDto updateTopicDto) {
+  //   Optional<Topic> topic = topicRepository.getTopicById(id);
+    
+  //   if (topic.isEmpty()) {
+  //     throw new RuntimeException("Topic no encontrado");
+  //   }
+
+  //   Topic newTopic = topic.get();
+
+  // }
 
 }
