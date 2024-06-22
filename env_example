@@ -1,5 +1,6 @@
 DB_HOST=<Host URL>
 DB_NAME=<Database name>
-DB_USERNAME=<User name>>
+DB_USERNAME=<User name>
 DB_PASWORD=<Password>
 JWT_SECRET=<Random string>
+PORT=<Spring port>
