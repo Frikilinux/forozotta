@@ -9,4 +9,4 @@ FROM amazoncorretto:17-alpine-jdk
 
 COPY --from=builder /usr/src/app/target/forozotta-0.0.1-SNAPSHOT.jar /usr/app/forozotta-0.0.1-SNAPSHOT.jar
 
-ENTRYPOINT ["java", "-cp", "/usr/app/forozotta-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/app/forozotta-0.0.1-SNAPSHOT.jar"]
