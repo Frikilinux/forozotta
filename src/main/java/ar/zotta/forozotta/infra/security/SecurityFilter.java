@@ -31,7 +31,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         var authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
-            System.out.println("AUTHHEADER" + authHeader);
             var token = authHeader.split(" ")[1];
             var email = tokenService.getSubject(token);
 

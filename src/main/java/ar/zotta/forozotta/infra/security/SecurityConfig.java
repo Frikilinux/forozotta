@@ -3,6 +3,7 @@ package ar.zotta.forozotta.infra.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,7 +26,9 @@ public class SecurityConfig {
     httpSecurity.csrf(csrf -> csrf.disable())
         .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests((authorize) -> authorize
-            .requestMatchers("/auth").permitAll()
+            .requestMatchers(HttpMethod.POST, "/users").permitAll()
+            .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+            .requestMatchers(HttpMethod.GET, "/topics/**").permitAll()
             .anyRequest().authenticated());
 
     httpSecurity.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

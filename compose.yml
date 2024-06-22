@@ -11,4 +11,4 @@ services:
     depends_on:
       - mysql
     ports:
-      - "9090:8080"
+      - "59375:8080"
