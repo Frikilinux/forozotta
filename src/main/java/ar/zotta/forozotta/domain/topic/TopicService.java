@@ -61,4 +61,14 @@ public class TopicService {
 
   }
 
+  public void deleteById(Long id) {
+    Topic topic = getTopicById(id);
+
+    if (authService.checkOwner(topic.getAuthor().getEmail())) {
+      throw new RuntimeException("El propietario del topic no es igual al usuario logueado.");
+    }
+
+    topicRepository.deleteById(id);
+  }
+
 }
