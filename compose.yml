@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    env_file: ./environment
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "9090:8080"
