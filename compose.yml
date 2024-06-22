@@ -1,5 +1,5 @@
 services:
-  db:
+  mysql:
     image: mysql
     restart: always
     env_file: ./environment
@@ -7,7 +7,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file: ./environment
     depends_on:
-      - db
+      - mysql
     ports:
       - "9090:8080"
