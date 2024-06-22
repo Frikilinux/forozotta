@@ -63,10 +63,12 @@ public class TopicController {
   public ResponseEntity<TopicResponseDto> updateTopic(@PathVariable Long id,
       @RequestBody UpdateTopicDto updateTopicDto) {
 
-    Topic topic = topicService.getTopicById(id);
-    topic.updateTopic(updateTopicDto);
+    Topic topic = topicService.updateTopic(id, updateTopicDto);
 
     return ResponseEntity.ok(new TopicResponseDto(topic));
   }
+
+
+  
 
 }
