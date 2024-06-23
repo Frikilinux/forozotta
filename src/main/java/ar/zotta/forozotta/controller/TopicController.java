@@ -1,5 +1,6 @@
 package ar.zotta.forozotta.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import ar.zotta.forozotta.domain.topic.CreateTopicDto;
 import ar.zotta.forozotta.domain.topic.Topic;
@@ -33,13 +35,16 @@ public class TopicController {
   UserService userService;
 
   @PostMapping
-  public ResponseEntity<TopicResponseDto> postTopic(@RequestBody @Valid CreateTopicDto createTopicDto) {
+  public ResponseEntity<TopicResponseDto> createTopic(@RequestBody @Valid CreateTopicDto createTopicDto,
+      UriComponentsBuilder uriComponentsBuilder) {
 
     Topic topic = topicService.createTopic(createTopicDto);
 
     TopicResponseDto topicResponseDto = new TopicResponseDto(topic);
 
-    return ResponseEntity.status(201).body(topicResponseDto);
+    URI uri = uriComponentsBuilder.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
+
+    return ResponseEntity.created(uri).body(topicResponseDto);
   }
 
   @GetMapping

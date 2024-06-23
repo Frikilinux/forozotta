@@ -22,16 +22,20 @@ public class AuthService implements UserDetailsService {
     return userRepository.findUserByUsername(email);
   }
 
-  public Boolean checkOwner(String ownerEmail) {
-    Optional<User> user = userRepository.findUserByEmail(ownerEmail);
+  public User getAutorizedUser() {
+    return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  }
+
+  public Boolean checkOwner(Long ownerId) {
+    Optional<User> user = userRepository.findUserById(ownerId);
 
     if (user.isEmpty()) {
       throw new RuntimeException("El propietario del topic no existe");
     }
 
-    User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User loggedUser = getAutorizedUser();
 
-    return !user.get().getEmail().toString().equals(loggedUser.getEmail().toString());
+    return !ownerId.equals(loggedUser.getId());
 
   }
 }

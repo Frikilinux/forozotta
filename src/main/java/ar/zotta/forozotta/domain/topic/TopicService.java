@@ -23,13 +23,10 @@ public class TopicService {
   AuthService authService;
 
   public Topic createTopic(CreateTopicDto topic) {
-    Optional<User> user = userRepository.findById(topic.authorId());
 
-    if (user.isEmpty()) {
-      throw new RuntimeException("No existe el usuario");
-    }
+    User user = authService.getAutorizedUser();
 
-    Topic response = topicRepository.save(new Topic(topic.title(), topic.message(), user.get()));
+    Topic response = topicRepository.save(new Topic(topic.title(), topic.message(), user));
 
     return response;
   }
@@ -51,7 +48,7 @@ public class TopicService {
 
     Topic topic = getTopicById(id);
 
-    if (authService.checkOwner(topic.getAuthor().getEmail())) {
+    if (authService.checkOwner(topic.getAuthor().getId())) {
       throw new RuntimeException("El propietario del topic no es igual al usuario logueado.");
     }
 
@@ -64,7 +61,7 @@ public class TopicService {
   public void deleteById(Long id) {
     Topic topic = getTopicById(id);
 
-    if (authService.checkOwner(topic.getAuthor().getEmail())) {
+    if (authService.checkOwner(topic.getAuthor().getId())) {
       throw new RuntimeException("El propietario del topic no es igual al usuario logueado.");
     }
 
