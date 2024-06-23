@@ -1,8 +1,13 @@
-# .env file Used by spring-dotenv only at runtime
+# Copy to .env file Used by spring-dotenv only at runtime
+# and compose.yml for docker-compose config
+# Replace with your own values
 
-DB_HOST=<Host URL>
-DB_NAME=<Database name>
-DB_USERNAME=<User name>
-DB_PASWORD=<Password>
-JWT_SECRET=<Random string>
-PORT=<Spring port>
+DB_HOST = mysql:3306
+DB_NAME = forozotta
+DB_USERNAME = root
+DB_PASSWORD = TestSpring
+JWT_SECRET = tskx2XbCLhfrYb5hSsoQSJ5Ar3sVWaPzhLwNhaocw2EggqRiSjFuQjYEkLmEuP4EWrh3ri
+
+MYSQL_ROOT_PASSWORD = TestSpring
+MYSQL_DATABASE = forozotta
+PORT = 59375
