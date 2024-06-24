@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserRepository;
 import ar.zotta.forozotta.infra.security.AuthService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 
 @Service
 public class TopicService {
@@ -39,7 +41,7 @@ public class TopicService {
     Optional<Topic> topic = topicRepository.getTopicById(id);
 
     if (topic.isEmpty()) {
-      throw new RuntimeException("Topic no encontrado");
+      throw new EntityNotFoundException("Topic no encontrado");
     }
     return topic.get();
   }
@@ -49,7 +51,7 @@ public class TopicService {
     Topic topic = getTopicById(id);
 
     if (authService.checkOwner(topic.getAuthor().getId())) {
-      throw new RuntimeException("El propietario del topic no es igual al usuario logueado.");
+      throw new ValidationException("El propietario del topic no es igual al usuario logueado.");
     }
 
     topic.updateTopic(updateTopicDto);
@@ -62,7 +64,7 @@ public class TopicService {
     Topic topic = getTopicById(id);
 
     if (authService.checkOwner(topic.getAuthor().getId())) {
-      throw new RuntimeException("El propietario del topic no es igual al usuario logueado.");
+      throw new ValidationException("El propietario del topic no es igual al usuario logueado.");
     }
 
     topicRepository.deleteById(id);
