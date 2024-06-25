@@ -13,7 +13,7 @@ public class SpringDocConfiguration {
   public OpenAPI openAPI() {
     return new OpenAPI()
         .components(new Components()
-            .addSecuritySchemes("Bearer-key", new SecurityScheme()
+            .addSecuritySchemes("bearer-key", new SecurityScheme()
                 .type(SecurityScheme.Type.HTTP)
                 .scheme("bearer")
                 .bearerFormat("JWT")));

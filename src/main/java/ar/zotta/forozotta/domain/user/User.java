@@ -35,7 +35,7 @@ public class User implements UserDetails {
   private Boolean active = true;
   // private String profiles;
 
-  public User(RegisterUserDto registerUserDto) {
+  public User(UserRegisterDto registerUserDto) {
     this.name = registerUserDto.name();
     this.email = registerUserDto.email();
     // this.password = registerUserDto.password();

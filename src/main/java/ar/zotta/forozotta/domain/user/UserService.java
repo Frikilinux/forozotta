@@ -27,7 +27,7 @@ public class UserService {
   @Autowired
   private TokenService tokenService;
 
-  public User registerUser(RegisterUserDto registerUserDto) {
+  public User registerUser(UserRegisterDto registerUserDto) {
 
     if (finUser(registerUserDto.email()).isPresent()) {
       throw new RuntimeException("El email ya existe");

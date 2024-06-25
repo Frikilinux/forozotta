@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ar.zotta.forozotta.domain.user.RegisterUserDto;
+import ar.zotta.forozotta.domain.user.UserRegisterDto;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserResponseDto;
 import ar.zotta.forozotta.domain.user.UserService;
@@ -24,7 +24,7 @@ public class UserController {
   private UserService userService;
 
   @PostMapping
-  public ResponseEntity<UserResponseDto> registerUser(@RequestBody @Valid RegisterUserDto registerUserDto,
+  public ResponseEntity<UserResponseDto> registerUser(@RequestBody @Valid UserRegisterDto registerUserDto,
       UriComponentsBuilder uriComponentsBuilder) {
 
     User user = userService.registerUser(registerUserDto);

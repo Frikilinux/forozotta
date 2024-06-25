@@ -21,6 +21,7 @@ import ar.zotta.forozotta.domain.topic.TopicResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicService;
 import ar.zotta.forozotta.domain.topic.UpdateTopicDto;
 import ar.zotta.forozotta.domain.user.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -34,6 +35,7 @@ public class TopicController {
   @Autowired
   UserService userService;
 
+  @SecurityRequirement(name = "bearer-key")
   @PostMapping
   public ResponseEntity<TopicResponseDto> createTopic(@RequestBody @Valid CreateTopicDto createTopicDto,
       UriComponentsBuilder uriComponentsBuilder) {
@@ -64,6 +66,7 @@ public class TopicController {
 
   }
 
+  @SecurityRequirement(name = "bearer-key")
   @PutMapping("/{id}")
   @Transactional
   public ResponseEntity<TopicResponseDto> updateTopic(@PathVariable Long id,
@@ -75,6 +78,7 @@ public class TopicController {
   }
 
   // Hard delete
+  @SecurityRequirement(name = "bearer-key")
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> deleteTopic(@PathVariable Long id) {
     topicService.deleteById(id);
