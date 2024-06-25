@@ -14,7 +14,6 @@ import ar.zotta.forozotta.domain.user.RegisterUserDto;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserResponseDto;
 import ar.zotta.forozotta.domain.user.UserService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController

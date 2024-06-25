@@ -11,9 +11,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import ar.zotta.forozotta.domain.user.User;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 
 @Service
 public class TokenService {
@@ -56,9 +59,11 @@ public class TokenService {
           .verify(token);
       verifier.getSubject();
     } catch (SignatureVerificationException e) {
-      System.out.println("Firma inválida");
+      throw new ValidationException("Firma invlida");
+    } catch (TokenExpiredException e) {
+      throw new TokenExpiredException("Token expirado desde " + e.getExpiredOn(), null);
     } catch (JWTVerificationException exception) {
-      System.out.println(exception.toString());
+      System.out.println(exception.getMessage());
     }
 
     if (verifier == null) {

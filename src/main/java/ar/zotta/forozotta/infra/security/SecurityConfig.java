@@ -21,6 +21,9 @@ public class SecurityConfig {
   @Autowired
   private SecurityFilter securityFilter;
 
+  @Autowired
+  private ExceptionHandlerFilter exceptionHandlerFilter;
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     httpSecurity.csrf(csrf -> csrf.disable())
@@ -31,6 +34,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.GET, "/topics/**").permitAll()
             .anyRequest().authenticated());
 
+    httpSecurity.addFilterBefore(exceptionHandlerFilter, UsernamePasswordAuthenticationFilter.class);
     httpSecurity.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
     return httpSecurity.build();
