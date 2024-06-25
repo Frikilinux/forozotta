@@ -1,11 +1,13 @@
 package ar.zotta.forozotta.infra.errors;
 
+import java.security.SignatureException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -27,11 +29,11 @@ public class ErrorHandler {
   @ExceptionHandler(TokenExpiredException.class)
   public ResponseEntity<ErrorResponseDto> unauthorized(TokenExpiredException e) {
     return ResponseEntity.status(401)
-        .body(new ErrorResponseDto(HttpStatus.UNAUTHORIZED, e.getMessage()));
+        .body(new ErrorResponseDto(HttpStatus.UNAUTHORIZED, e.getMessage() + e.getExpiredOn()));
   }
 
-  @ExceptionHandler(SignatureVerificationException.class)
-  public ResponseEntity<ErrorResponseDto> signInvalid(SignatureVerificationException e) {
+  @ExceptionHandler(JWTVerificationException.class)
+  public ResponseEntity<ErrorResponseDto> signInvalid(JWTVerificationException e) {
     return ResponseEntity.status(401)
         .body(new ErrorResponseDto(HttpStatus.UNAUTHORIZED, e.getMessage()));
   }

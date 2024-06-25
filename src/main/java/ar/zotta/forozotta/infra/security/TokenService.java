@@ -10,13 +10,10 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import ar.zotta.forozotta.domain.user.User;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ValidationException;
 
 @Service
 public class TokenService {
@@ -58,18 +55,12 @@ public class TokenService {
           .build()
           .verify(token);
       verifier.getSubject();
-    } catch (SignatureVerificationException e) {
-      throw new ValidationException("Firma invlida");
     } catch (TokenExpiredException e) {
-      throw new TokenExpiredException("Token expirado desde " + e.getExpiredOn(), null);
+      throw new TokenExpiredException("Token expirado desde ", e.getExpiredOn());
     } catch (JWTVerificationException exception) {
-      System.out.println(exception.getMessage());
+      throw new JWTVerificationException("Error de token: " + exception.getMessage());
     }
 
-    if (verifier == null) {
-      System.out.println("Verifier invalido");
-      return null;
-    }
     return verifier.getSubject();
   }
 
