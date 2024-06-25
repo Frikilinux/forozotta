@@ -1,9 +1,10 @@
 package ar.zotta.forozotta.infra.errors;
 
-import java.security.SignatureException;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -36,5 +37,11 @@ public class ErrorHandler {
   public ResponseEntity<ErrorResponseDto> signInvalid(JWTVerificationException e) {
     return ResponseEntity.status(401)
         .body(new ErrorResponseDto(HttpStatus.UNAUTHORIZED, e.getMessage()));
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<List<ValidationResponseDto>> dataValidation(MethodArgumentNotValidException e) {
+    List<ValidationResponseDto> errors = e.getFieldErrors().stream().map(ValidationResponseDto::new).toList();
+    return ResponseEntity.badRequest().body(errors);
   }
 }

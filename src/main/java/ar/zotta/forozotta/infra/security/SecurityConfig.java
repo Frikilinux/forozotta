@@ -32,6 +32,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/users").permitAll()
             .requestMatchers(HttpMethod.POST, "/auth").permitAll()
             .requestMatchers(HttpMethod.GET, "/topics/**").permitAll()
+            .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated());
 
     httpSecurity.addFilterBefore(exceptionHandlerFilter, UsernamePasswordAuthenticationFilter.class);
