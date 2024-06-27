@@ -1,6 +1,7 @@
 package ar.zotta.forozotta.domain.user;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ar.zotta.forozotta.domain.user.validation.UserValidation;
 import ar.zotta.forozotta.infra.security.AuthResponseDto;
 import ar.zotta.forozotta.infra.security.TokenService;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService {
@@ -27,11 +30,12 @@ public class UserService {
   @Autowired
   private TokenService tokenService;
 
+  @Autowired
+  List<UserValidation> userValidations;
+
   public User registerUser(UserRegisterDto registerUserDto) {
 
-    if (finUser(registerUserDto.email()).isPresent()) {
-      throw new RuntimeException("El email ya existe");
-    }
+    userValidations.forEach(uv -> uv.validate(registerUserDto));
 
     User user = new User(registerUserDto);
 
@@ -43,21 +47,25 @@ public class UserService {
   }
 
   public AuthResponseDto userAuth(UserLoginDto userLoginDto) {
+
+    Optional<User> user = userRepository.findUserByEmail(userLoginDto.email());
+
+    if (user.isEmpty()) {
+      throw new EntityNotFoundException("Usuario no encontrado");
+    }
+
     Authentication authRequestToken = new UsernamePasswordAuthenticationToken(userLoginDto.email(),
         userLoginDto.password());
 
     Authentication userAuthenticated = authenticationManager.authenticate(authRequestToken);
 
     String jwtToken = tokenService.generateToken((User) userAuthenticated.getPrincipal());
-    User user = (User) userAuthenticated.getPrincipal();
+
+    // User user = (User) userAuthenticated.getPrincipal();
 
     Date expiresAt = tokenService.decodeJwt(jwtToken).getExpiresAt();
 
-    return new AuthResponseDto(user, jwtToken, expiresAt);
-  }
-
-  private Optional<User> finUser(String email) {
-    return userRepository.findUserByEmail(email);
+    return new AuthResponseDto(user.get(), jwtToken, expiresAt);
   }
 
 }
