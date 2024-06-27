@@ -17,8 +17,8 @@ import jakarta.validation.ValidationException;
 @RestControllerAdvice
 public class ErrorHandler {
   @ExceptionHandler(ValidationException.class)
-  public ResponseEntity<String> validation(ValidationException e) {
-    return ResponseEntity.badRequest().body(e.getMessage());
+  public ResponseEntity<ErrorResponseDto> validation(ValidationException e) {
+    return ResponseEntity.badRequest().body(new ErrorResponseDto(HttpStatus.BAD_REQUEST, e.getMessage()));
   }
 
   @ExceptionHandler(EntityNotFoundException.class)

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.zotta.forozotta.domain.topic.validation.TopicValidation;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserRepository;
 import ar.zotta.forozotta.infra.security.AuthService;
@@ -24,9 +25,14 @@ public class TopicService {
   @Autowired
   AuthService authService;
 
+  @Autowired
+  List<TopicValidation> topicValidations;
+
   public Topic createTopic(CreateTopicDto topic) {
 
     User user = authService.getAutorizedUser();
+
+    topicValidations.forEach(tv -> tv.validate(topic));
 
     Topic response = topicRepository.save(new Topic(topic.title(), topic.message(), user));
 
