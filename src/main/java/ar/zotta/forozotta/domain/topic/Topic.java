@@ -1,7 +1,9 @@
 package ar.zotta.forozotta.domain.topic;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import ar.zotta.forozotta.domain.reply.Reply;
 import ar.zotta.forozotta.domain.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

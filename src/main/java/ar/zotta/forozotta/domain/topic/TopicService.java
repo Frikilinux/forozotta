@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.zotta.forozotta.domain.reply.Reply;
+import ar.zotta.forozotta.domain.reply.ReplyRepository;
 import ar.zotta.forozotta.domain.topic.validation.TopicValidation;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserRepository;
@@ -18,6 +20,9 @@ public class TopicService {
 
   @Autowired
   TopicRepository topicRepository;
+
+  @Autowired
+  ReplyRepository replyRepository;
 
   @Autowired
   UserRepository userRepository;
@@ -49,6 +54,9 @@ public class TopicService {
     if (topic.isEmpty()) {
       throw new EntityNotFoundException("Topic no encontrado");
     }
+
+    List<Reply> replies = replyRepository.getReplyByTopicId(topic.get().getId());
+    
     return topic.get();
   }
 
