@@ -46,9 +46,25 @@ public class ReplyService {
     }
 
     Reply newReply = reply.get();
+
+    if (authService.checkOwner(newReply.getAuthor().getId())) {
+      throw new ValidationException("El propietario de la respuesta no es igual al usuario logueado.");
+    }
+
     newReply.updateReply(replyUpdateDto);
 
     return newReply;
+
+  }
+
+  public Reply getReplyById(Long id) {
+    Optional<Reply> reply = replyRepository.findById(id);
+
+    if (reply.isEmpty()) {
+      throw new EntityNotFoundException("La respuesta no existe");
+    }
+
+    return reply.get();
 
   }
 
