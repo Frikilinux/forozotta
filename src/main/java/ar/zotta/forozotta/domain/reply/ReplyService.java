@@ -10,6 +10,7 @@ import ar.zotta.forozotta.domain.topic.TopicRepository;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.infra.security.AuthService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 
 @Service
 public class ReplyService {
@@ -34,6 +35,20 @@ public class ReplyService {
     Reply reply = replyRepository.save(new Reply(replyTopicDto.message(), user, topic.get()));
 
     return reply;
+
+  }
+
+  public Reply updateReply(Long id, ReplyUpdateDto replyUpdateDto) {
+    Optional<Reply> reply = replyRepository.findById(id);
+
+    if (reply.isEmpty()) {
+      throw new EntityNotFoundException("La respuesta no existe");
+    }
+
+    Reply newReply = reply.get();
+    newReply.updateReply(replyUpdateDto);
+
+    return newReply;
 
   }
 

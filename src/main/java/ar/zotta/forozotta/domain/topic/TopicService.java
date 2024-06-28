@@ -54,8 +54,6 @@ public class TopicService {
     if (topic.isEmpty()) {
       throw new EntityNotFoundException("Topic no encontrado");
     }
-
-    List<Reply> replies = replyRepository.getReplyByTopicId(topic.get().getId());
     
     return topic.get();
   }

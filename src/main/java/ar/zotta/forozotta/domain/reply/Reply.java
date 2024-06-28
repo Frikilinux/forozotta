@@ -51,9 +51,9 @@ public class Reply {
     this.solution = false;
   }
 
-  public void updateReply(UpdateReplyDto updateReplyDto) {
-    if (updateReplyDto.message() != null) {
-      this.message = updateReplyDto.message();
+  public void updateReply(ReplyUpdateDto replyUpdateDto) {
+    if (replyUpdateDto.message() != null) {
+      this.message = replyUpdateDto.message();
     }
     this.modifiedAt = LocalDateTime.now();
   }

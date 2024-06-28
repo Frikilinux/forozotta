@@ -4,7 +4,9 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,7 @@ import ar.zotta.forozotta.domain.reply.Reply;
 import ar.zotta.forozotta.domain.reply.ReplyResponseDto;
 import ar.zotta.forozotta.domain.reply.ReplyService;
 import ar.zotta.forozotta.domain.reply.ReplyTopicDto;
+import ar.zotta.forozotta.domain.reply.ReplyUpdateDto;
 import jakarta.validation.Valid;
 
 @RestController
@@ -32,6 +35,14 @@ public class ReplyController {
     URI uri = uriComponentsBuilder.path("/replies/{id}").buildAndExpand(reply.getId()).toUri();
 
     return ResponseEntity.created(uri).body(new ReplyResponseDto(reply));
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<ReplyResponseDto> updateReply(@PathVariable Long id,
+      @RequestBody ReplyUpdateDto replyUpdateDto) {
+    Reply reply = replyService.updateReply(id, replyUpdateDto);
+
+    return ResponseEntity.ok().body(new ReplyResponseDto(reply));
   }
 
 }
