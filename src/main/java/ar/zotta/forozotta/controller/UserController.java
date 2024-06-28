@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ar.zotta.forozotta.domain.user.UserRegisterDto;
+import ar.zotta.forozotta.domain.user.UserRepliesListResponseDto;
 import ar.zotta.forozotta.domain.reply.Reply;
 import ar.zotta.forozotta.domain.topic.Topic;
 import ar.zotta.forozotta.domain.user.User;
