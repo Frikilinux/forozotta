@@ -11,6 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ar.zotta.forozotta.domain.reply.Reply;
+import ar.zotta.forozotta.domain.reply.ReplyRepository;
+import ar.zotta.forozotta.domain.topic.Topic;
+import ar.zotta.forozotta.domain.topic.TopicRepository;
 import ar.zotta.forozotta.domain.user.validation.UserValidation;
 import ar.zotta.forozotta.infra.security.AuthResponseDto;
 import ar.zotta.forozotta.infra.security.TokenService;
@@ -20,6 +24,12 @@ import jakarta.persistence.EntityNotFoundException;
 public class UserService {
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private TopicRepository topicRepository;
+
+  @Autowired
+  private ReplyRepository replyRepository;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -66,6 +76,28 @@ public class UserService {
     Date expiresAt = tokenService.decodeJwt(jwtToken).getExpiresAt();
 
     return new AuthResponseDto(user.get(), jwtToken, expiresAt);
+  }
+
+  public List<Topic> getUserTopics(Long userId) {
+
+    Optional<List<Topic>> topics = topicRepository.findUserTopics(userId);
+
+    if (topics.get().size() <= 0) {
+      throw new EntityNotFoundException("No se encotraron topicos para este usuario");
+    }
+
+    return topics.get();
+
+  }
+
+  public List<Reply> getUserReplies(Long userId) {
+    Optional<List<Reply>> replies = replyRepository.getUserReplies(userId);
+
+    if (replies.get().size() <= 0) {
+      throw new EntityNotFoundException("No se encontraron respuestas para este usuario");
+    }
+
+    return replies.get();
   }
 
 }

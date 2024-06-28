@@ -62,6 +62,5 @@ public class Topic {
     this.modifiedAt = LocalDateTime.now();
   }
   // private String curso;
-  // private String response;
 
 }
