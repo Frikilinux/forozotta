@@ -58,4 +58,8 @@ public class Reply {
     this.modifiedAt = LocalDateTime.now();
   }
 
+  public void toggleSolution(Reply reply) {
+    this.solution = !reply.solution;
+  }
+
 }

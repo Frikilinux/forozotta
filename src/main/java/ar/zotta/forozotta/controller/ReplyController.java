@@ -19,6 +19,7 @@ import ar.zotta.forozotta.domain.reply.ReplyResponseDto;
 import ar.zotta.forozotta.domain.reply.ReplyService;
 import ar.zotta.forozotta.domain.reply.ReplyTopicDto;
 import ar.zotta.forozotta.domain.reply.ReplyUpdateDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
@@ -28,6 +29,7 @@ public class ReplyController {
   @Autowired
   ReplyService replyService;
 
+  @SecurityRequirement(name = "bearer-key")
   @PostMapping
   public ResponseEntity<ReplyResponseDto> replyTopic(@RequestBody @Valid ReplyTopicDto replyTopicDto,
       UriComponentsBuilder uriComponentsBuilder) {
@@ -39,11 +41,21 @@ public class ReplyController {
     return ResponseEntity.created(uri).body(new ReplyResponseDto(reply));
   }
 
+  @SecurityRequirement(name = "bearer-key")
   @PutMapping("/{id}")
   @Transactional
   public ResponseEntity<ReplyResponseDto> updateReply(@PathVariable Long id,
       @RequestBody ReplyUpdateDto replyUpdateDto) {
     Reply reply = replyService.updateReply(id, replyUpdateDto);
+
+    return ResponseEntity.ok().body(new ReplyResponseDto(reply));
+  }
+
+  @SecurityRequirement(name = "bearer-key")
+  @PutMapping("/{id}/solution")
+  @Transactional
+  public ResponseEntity<ReplyResponseDto> toggleSolution(@PathVariable Long id) {
+    Reply reply = replyService.toggleSolution(id);
 
     return ResponseEntity.ok().body(new ReplyResponseDto(reply));
   }

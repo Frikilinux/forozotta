@@ -14,6 +14,7 @@ import ar.zotta.forozotta.domain.user.UserRegisterDto;
 import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserResponseDto;
 import ar.zotta.forozotta.domain.user.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
@@ -23,6 +24,7 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @SecurityRequirement(name = "bearer-key")
   @PostMapping
   public ResponseEntity<UserResponseDto> registerUser(@RequestBody @Valid UserRegisterDto registerUserDto,
       UriComponentsBuilder uriComponentsBuilder) {

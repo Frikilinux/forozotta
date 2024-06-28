@@ -68,4 +68,28 @@ public class ReplyService {
 
   }
 
+  public Reply toggleSolution(Long id) {
+    Optional<Reply> reply = replyRepository.findById(id);
+
+    if (reply.isEmpty()) {
+      throw new EntityNotFoundException("La respuesta no existe");
+    }
+
+    Reply newReply = reply.get();
+
+    Optional<Topic> topic = topicRepository.findById(newReply.getTopic().getId());
+
+    if (topic.isEmpty()) {
+      throw new EntityNotFoundException("Topic no encontrado");
+    }
+
+    if (authService.checkOwner(topic.get().getAuthor().getId())) {
+      throw new ValidationException("Solo el dueño el topic puede cambiar el estado de solution");
+    }
+
+    newReply.toggleSolution(newReply);
+
+    return newReply;
+
+  }
 }
