@@ -1,8 +1,9 @@
 package ar.zotta.forozotta.domain.topic;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,8 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
   Optional<Topic> checkDuplicatedTopic(String title, String message);
 
   @Query("SELECT t FROM Topic t WHERE t.author.id = :userId")
-  Optional<List<Topic>> findUserTopics(Long userId);
+  Optional<Page<Topic>> findUserTopics(Long userId, Pageable pageable);
+
+
 
 }

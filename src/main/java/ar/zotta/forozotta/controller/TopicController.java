@@ -1,9 +1,10 @@
 package ar.zotta.forozotta.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,11 +52,11 @@ public class TopicController {
   }
 
   @GetMapping
-  public ResponseEntity<List<TopicListResponseDto>> getTopics() {
+  public ResponseEntity<Page<TopicListResponseDto>> getTopics(Pageable pageable) {
 
-    List<Topic> topics = topicService.getTopics();
+    Page<Topic> topics = topicService.getTopics(pageable);
 
-    return ResponseEntity.ok(topics.stream().map(TopicListResponseDto::new).toList());
+    return ResponseEntity.ok(topics.map(TopicListResponseDto::new));
   }
 
   @GetMapping("/{id}")

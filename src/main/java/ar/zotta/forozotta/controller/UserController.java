@@ -1,9 +1,10 @@
 package ar.zotta.forozotta.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,19 +44,29 @@ public class UserController {
     return ResponseEntity.created(uri).body(new UserResponseDto(user));
   }
 
+  // @GetMapping("/{id}/topics")
+  // public ResponseEntity<List<UserTopicListResponseDto>>
+  // getUserTopics(@PathVariable Long id) {
+
+  // List<Topic> topics = userService.getUserTopics(id);
+
+  // return
+  // ResponseEntity.ok(topics.stream().map(UserTopicListResponseDto::new).toList());
+  // }
+
   @GetMapping("/{id}/topics")
-  public ResponseEntity<List<UserTopicListResponseDto>> getUserTopics(@PathVariable Long id) {
+  public ResponseEntity<Page<UserTopicListResponseDto>> getUserTopics(@PathVariable Long id, Pageable pageable) {
 
-    List<Topic> topics = userService.getUserTopics(id);
+    Page<Topic> topics = userService.getUserTopics(id, pageable);
 
-    return ResponseEntity.ok(topics.stream().map(UserTopicListResponseDto::new).toList());
+    return ResponseEntity.ok(topics.map(UserTopicListResponseDto::new));
   }
 
   @GetMapping("/{id}/replies")
-  public ResponseEntity<List<UserRepliesListResponseDto>> getUserReplies(@PathVariable Long id) {
+  public ResponseEntity<Page<UserRepliesListResponseDto>> getUserReplies(@PathVariable Long id, Pageable pageable) {
 
-    List<Reply> replies = userService.getUserReplies(id);
+    Page<Reply> replies = userService.getUserReplies(id, pageable);
 
-    return ResponseEntity.ok(replies.stream().map(UserRepliesListResponseDto::new).toList());
+    return ResponseEntity.ok(replies.map(UserRepliesListResponseDto::new));
   }
 }

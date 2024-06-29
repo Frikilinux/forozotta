@@ -3,6 +3,8 @@ package ar.zotta.forozotta.domain.reply;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,6 +15,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
   List<Reply> getReplyByTopicId(Long topicId);
 
   @Query("SELECT r FROM Reply r WHERE r.author.id = :userId")
-  Optional<List<Reply>> getUserReplies(Long userId);
+  Optional<Page<Reply>> getUserReplies(Long userId, Pageable Pageable);
 
 }

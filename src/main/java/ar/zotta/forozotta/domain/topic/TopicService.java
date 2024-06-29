@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ar.zotta.forozotta.domain.reply.ReplyRepository;
@@ -43,8 +45,12 @@ public class TopicService {
     return response;
   }
 
-  public List<Topic> getTopics() {
-    return topicRepository.findAll();
+  public Page<Topic> getTopics(Pageable pageable) {
+    Page<Topic> topics = topicRepository.findAll(pageable);
+
+    return topics;
+    // return topicRepository.findAll();
+
   }
 
   public Topic getTopicById(Long id) {
@@ -53,7 +59,7 @@ public class TopicService {
     if (topic.isEmpty()) {
       throw new EntityNotFoundException("Topic no encontrado");
     }
-    
+
     return topic.get();
   }
 

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,7 +45,6 @@ public class UserService {
   @Autowired
   List<UserValidation<UserRegisterDto>> userValidations;
 
-
   public User registerUser(UserRegisterDto registerUserDto) {
 
     userValidations.forEach(uv -> uv.validate(registerUserDto));
@@ -79,11 +80,11 @@ public class UserService {
     return new AuthResponseDto(user.get(), jwtToken, expiresAt);
   }
 
-  public List<Topic> getUserTopics(Long userId) {
+  public Page<Topic> getUserTopics(Long userId, Pageable pageable) {
 
-    Optional<List<Topic>> topics = topicRepository.findUserTopics(userId);
+    Optional<Page<Topic>> topics = topicRepository.findUserTopics(userId, pageable);
 
-    if (topics.get().size() <= 0) {
+    if (topics.get().getTotalElements() <= 0) {
       throw new EntityNotFoundException("No se encotraron topicos para este usuario");
     }
 
@@ -91,10 +92,10 @@ public class UserService {
 
   }
 
-  public List<Reply> getUserReplies(Long userId) {
-    Optional<List<Reply>> replies = replyRepository.getUserReplies(userId);
+  public Page<Reply> getUserReplies(Long userId, Pageable pageable) {
+    Optional<Page<Reply>> replies = replyRepository.getUserReplies(userId, pageable);
 
-    if (replies.get().size() <= 0) {
+    if (replies.get().getTotalElements() <= 0) {
       throw new EntityNotFoundException("No se encontraron respuestas para este usuario");
     }
 
