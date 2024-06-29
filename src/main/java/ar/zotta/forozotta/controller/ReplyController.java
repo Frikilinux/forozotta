@@ -5,6 +5,7 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +66,15 @@ public class ReplyController {
     Reply reply = replyService.getReplyById(id);
 
     return ResponseEntity.ok().body(new ReplyResponseDto(reply));
+  }
+
+  // Hard delete
+  @SecurityRequirement(name = "bearer-key")
+  @DeleteMapping("/{id}")
+  public ResponseEntity<ReplyResponseDto> deleteReply(@PathVariable Long id) {
+    replyService.deleteRplyById(id);
+
+    return ResponseEntity.noContent().build();
   }
 
 }

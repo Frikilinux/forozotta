@@ -11,7 +11,7 @@ import ar.zotta.forozotta.domain.user.UserRepository;
 import jakarta.validation.ValidationException;
 
 @Component
-public class DuplicatedUser implements UserValidation {
+public class DuplicatedUser implements UserValidation<UserRegisterDto> {
   @Autowired
   UserRepository userRepository;
 

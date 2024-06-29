@@ -92,4 +92,19 @@ public class ReplyService {
     return newReply;
 
   }
+
+  public void deleteRplyById(Long id) {
+    Optional<Reply> reply = replyRepository.findById(id);
+
+    if (reply.isEmpty()) {
+      throw new EntityNotFoundException("La respuesta no existe");
+    }
+
+    if (authService.checkOwner(reply.get().getAuthor().getId())) {
+      throw new ValidationException("El propietario de la respuesta no es igual al usuario logueado.");
+    }
+
+    replyRepository.deleteById(id);
+
+  }
 }

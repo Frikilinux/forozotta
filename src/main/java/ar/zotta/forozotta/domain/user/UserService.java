@@ -41,7 +41,8 @@ public class UserService {
   private TokenService tokenService;
 
   @Autowired
-  List<UserValidation> userValidations;
+  List<UserValidation<UserRegisterDto>> userValidations;
+
 
   public User registerUser(UserRegisterDto registerUserDto) {
 
