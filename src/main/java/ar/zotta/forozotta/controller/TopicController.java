@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import ar.zotta.forozotta.domain.topic.CreateTopicDto;
 import ar.zotta.forozotta.domain.topic.Topic;
+import ar.zotta.forozotta.domain.topic.TopicListResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicService;
 import ar.zotta.forozotta.domain.topic.UpdateTopicDto;
@@ -50,11 +51,11 @@ public class TopicController {
   }
 
   @GetMapping
-  public ResponseEntity<List<TopicResponseDto>> getTopics() {
+  public ResponseEntity<List<TopicListResponseDto>> getTopics() {
 
     List<Topic> topics = topicService.getTopics();
 
-    return ResponseEntity.ok(topics.stream().map(TopicResponseDto::new).toList());
+    return ResponseEntity.ok(topics.stream().map(TopicListResponseDto::new).toList());
   }
 
   @GetMapping("/{id}")
