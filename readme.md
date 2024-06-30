@@ -31,8 +31,8 @@ MYSQL_ROOT_PASSWORD = TestSpring
 MYSQL_DATABASE = forozotta
 PORT = 59375
 ```
-
-Modificar la variables acorde a sus preferencias.
+> [!NOTE]
+> Modificar la variables acorde a sus preferencias.
 
 ### Iniciar el proyecto
 
@@ -52,5 +52,12 @@ docker compose up --build
 
 La documentación con Swagger está disponible en `http://<HOST>:>PORT>/swagger-ui/index.html`
 
+![Documentación Swagger](https://ipfs.filebase.io/ipfs/QmezqdhBioKmBAV6AJcKbDb3yfSMQe5PB4WikCWwx3vU2m)
 
 
+
+
+
+### Diagrama MySQL
+
+![Diagrama MySQL](https://ipfs.filebase.io/ipfs/Qmf5RzPd58wn3rFDUQetDsqhxKnxQm9mMitPsTiBRGmFCS)
