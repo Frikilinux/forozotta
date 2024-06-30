@@ -1,6 +1,6 @@
 # ForoHub - Oracle One Education
 
-El propósito de esta API es proporcionar funcionalidades para un foro en línea, como crear publicaciones, comentar, votar y obtener hilos de discusión.
+El propósito de esta API es proporcionar funcionalidades para un foro en línea, como crear publicaciones, comentar u obtener lista de publicaciones.
 
 ## Herramientas usadas
 
