@@ -52,4 +52,11 @@ La documentación con Swagger está disponible en `http://<HOST>:>PORT>/swagger-
 
 ### Diagrama MySQL
 
+Las Tablas será creadas con Flyway la primera vez que inicie el proyecto.
+
 ![Diagrama MySQL](https://ipfs.filebase.io/ipfs/Qmf5RzPd58wn3rFDUQetDsqhxKnxQm9mMitPsTiBRGmFCS)
+
+> [!NOTE]
+>
+> El archivo [V1_1__InsertExampleData.sql](https://github.com/Frikilinux/forozotta/blob/main/src/main/resources/db/migration/V1_1__InsertExampleData.sql) contiene unos registros de ejemplo, que serán añadidos a la base de datos automáticamente.
+> La contraseña cifrada con Bcrypt para todos los usuarios es: 654321
