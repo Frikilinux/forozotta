@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ar.zotta.forozotta.domain.topic.CreateTopicDto;
+import ar.zotta.forozotta.domain.topic.TopicCreateDto;
 import ar.zotta.forozotta.domain.topic.Topic;
 import ar.zotta.forozotta.domain.topic.TopicRepository;
 import jakarta.validation.ValidationException;
@@ -16,7 +16,7 @@ public class DuplicatedTopic implements TopicValidation {
   private TopicRepository topicRepository;
 
   @Override
-  public void validate(CreateTopicDto createTopicDto) {
+  public void validate(TopicCreateDto createTopicDto) {
     Optional<Topic> topic = topicRepository.checkDuplicatedTopic(createTopicDto.title(), createTopicDto.message());
 
     if (topic.isPresent()) {

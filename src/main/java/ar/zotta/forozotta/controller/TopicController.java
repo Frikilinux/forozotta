@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ar.zotta.forozotta.domain.topic.CreateTopicDto;
+import ar.zotta.forozotta.domain.topic.TopicCreateDto;
 import ar.zotta.forozotta.domain.topic.Topic;
+import ar.zotta.forozotta.domain.topic.TopicCreateResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicListResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicService;
@@ -39,16 +40,17 @@ public class TopicController {
 
   @SecurityRequirement(name = "bearer-key")
   @PostMapping
-  public ResponseEntity<TopicResponseDto> createTopic(@RequestBody @Valid CreateTopicDto createTopicDto,
+  public ResponseEntity<TopicCreateResponseDto> createTopic(@RequestBody @Valid TopicCreateDto createTopicDto,
       UriComponentsBuilder uriComponentsBuilder) {
 
     Topic topic = topicService.createTopic(createTopicDto);
 
-    TopicResponseDto topicResponseDto = new TopicResponseDto(topic);
+    // TopicResponseDto topicResponseDto = new TopicResponseDto(topic);
+    TopicCreateResponseDto topicCreateResponseDto = new TopicCreateResponseDto(topic);
 
     URI uri = uriComponentsBuilder.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
 
-    return ResponseEntity.created(uri).body(topicResponseDto);
+    return ResponseEntity.created(uri).body(topicCreateResponseDto);
   }
 
   @GetMapping

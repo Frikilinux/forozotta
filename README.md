@@ -46,7 +46,7 @@ docker compose up --build
 
 ### Accediendo a la documentación
 
-La documentación con Swagger está disponible en `http://<HOST>:>PORT>/swagger-ui/index.html`
+La documentación con Swagger está disponible en `http://<HOST>:>PORT>/swagger-ui.html`
 
 ![Documentación Swagger](https://ipfs.filebase.io/ipfs/QmezqdhBioKmBAV6AJcKbDb3yfSMQe5PB4WikCWwx3vU2m)
 

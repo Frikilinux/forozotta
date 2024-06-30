@@ -1,7 +1,7 @@
 package ar.zotta.forozotta.domain.topic.validation;
 
-import ar.zotta.forozotta.domain.topic.CreateTopicDto;
+import ar.zotta.forozotta.domain.topic.TopicCreateDto;
 
 public interface TopicValidation {
-  public void validate(CreateTopicDto createTopicDto);
+  public void validate(TopicCreateDto createTopicDto);
 }

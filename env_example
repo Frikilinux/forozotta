@@ -3,11 +3,13 @@
 # Replace with your own values
 
 DB_HOST = mysql:3306
-DB_NAME = forozotta
-DB_USERNAME = root
+DB_NAME = demo_forohub
+DB_USERNAME = demoDB
 DB_PASSWORD = TestSpring
 JWT_SECRET = tskx2XbCLhfrYb5hSsoQSJ5Ar3sVWaPzhLwNhaocw2EggqRiSjFuQjYEkLmEuP4EWrh3ri
 
-MYSQL_ROOT_PASSWORD = TestSpring
-MYSQL_DATABASE = forozotta
+MYSQL_RANDOM_ROOT_PASSWORD = true
+MYSQL_USER = ${DB_USERNAME}
+MYSQL_PASSWORD = ${DB_PASSWORD}
+MYSQL_DATABASE = ${DB_NAME}
 PORT = 59375

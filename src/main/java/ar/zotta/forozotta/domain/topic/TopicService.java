@@ -34,7 +34,7 @@ public class TopicService {
   @Autowired
   List<TopicValidation> topicValidations;
 
-  public Topic createTopic(CreateTopicDto topic) {
+  public Topic createTopic(TopicCreateDto topic) {
 
     User user = authService.getAutorizedUser();
 

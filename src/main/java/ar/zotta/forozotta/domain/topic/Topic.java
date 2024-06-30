@@ -32,7 +32,7 @@ public class Topic {
   private String message;
   private LocalDateTime createdAt;
   private LocalDateTime modifiedAt;
-  // private Boolean status;
+  private Boolean status;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author_id")
@@ -50,6 +50,7 @@ public class Topic {
     this.author = author;
     this.createdAt = LocalDateTime.now();
     this.modifiedAt = LocalDateTime.now();
+    this.status = true;
   }
 
   public void updateTopic(UpdateTopicDto updateTopicDto) {
