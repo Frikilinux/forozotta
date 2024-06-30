@@ -6,6 +6,21 @@ El propósito de esta API es proporcionar funcionalidades para un foro en línea
 
 ![Java](https://img.shields.io/badge/Java-EC2025?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) 
 
+| Herramienta | Versión |
+| :---------- | :------ |
+| Java |  17 |
+| MySQL | 8.4.0|
+| Maven | 3.9.7 |
+| Spring Boot | 3.3.0 |
+| Spring Data JPA | 3.3.0 |
+| Spring Security | 3.3.0 |
+| Spring Doc |  2.5.0 |
+| JWT Token  | 4.4.0 |
+|  Flyway | 10.15.0 |
+| Lombok | 1.18.3 |
+|  MySQL Connector J | 8.4.0 |
+| Spring Dotenv (Runtime) | 4.0.0 |
+
 ## Despliegue con Docker
 
 ### Clonar el repositorios
