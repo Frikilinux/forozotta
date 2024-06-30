@@ -4,7 +4,7 @@ El propósito de esta API es proporcionar funcionalidades para un foro en línea
 
 ## Herramientas usadas
 
-![Java](https://img.shields.io/badge/Java-EC2025?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) 
+![Java](https://img.shields.io/badge/Java-EC2025?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) 
 
 ## Despliegue con Docker
 
@@ -36,27 +36,19 @@ PORT = 59375
 
 ### Iniciar el proyecto
 
-```sh
+```shell
 docker compose up --build
 ```
-
-
 
 > [!NOTE]
 >
 > La imagen se crea a partir de `maven:3.9.7-amazoncorretto-17` y `amazoncorretto:17-alpine-jdk`
-
-
 
 ### Accediendo a la documentación
 
 La documentación con Swagger está disponible en `http://<HOST>:>PORT>/swagger-ui/index.html`
 
 ![Documentación Swagger](https://ipfs.filebase.io/ipfs/QmezqdhBioKmBAV6AJcKbDb3yfSMQe5PB4WikCWwx3vU2m)
-
-
-
-
 
 ### Diagrama MySQL
 
