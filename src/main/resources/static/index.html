@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css"
+      title="docsify-darklight-theme"
+      type="text/css"
+    />
+    <link rel="icon" href="/brainsdamage-logo.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div id="app">ForoHub API doc is loading ...</div>
+    <script>
+      window.$docsify = {
+        name: 'Forohub API',
+        // nativeEmoji: true,
+        loadSidebar: false,
+        subMaxLevel: 3,
+        repo: 'true', // set the docsify show the corner
+        corner: {
+          url: 'https://github.com/Frikilinux/forozotta',
+          icon: 'github',
+          color: '#091a28',
+          background: '#42b983',
+        },
+        noCompileLinks: ['/swagger-ui.html'],
+        darklightTheme: {
+          defaultTheme: 'dark',
+        },
+      }
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-js.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-corner/dist/docsify-corner.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js"></script>
+  </body>
+</html>
