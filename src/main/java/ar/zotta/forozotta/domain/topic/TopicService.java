@@ -63,7 +63,7 @@ public class TopicService {
     return topic.get();
   }
 
-  public Topic updateTopic(Long id, UpdateTopicDto updateTopicDto) {
+  public Topic updateTopic(Long id, TopicUpdateDto updateTopicDto) {
 
     Topic topic = getTopicById(id);
 

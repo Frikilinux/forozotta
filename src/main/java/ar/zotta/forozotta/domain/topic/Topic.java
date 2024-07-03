@@ -53,7 +53,7 @@ public class Topic {
     this.status = true;
   }
 
-  public void updateTopic(UpdateTopicDto updateTopicDto) {
+  public void updateTopic(TopicUpdateDto updateTopicDto) {
     if (updateTopicDto.title() != null) {
       this.title = updateTopicDto.title();
     }

@@ -22,7 +22,7 @@ import ar.zotta.forozotta.domain.topic.TopicCreateResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicListResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicService;
-import ar.zotta.forozotta.domain.topic.UpdateTopicDto;
+import ar.zotta.forozotta.domain.topic.TopicUpdateDto;
 import ar.zotta.forozotta.domain.user.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
@@ -74,7 +74,7 @@ public class TopicController {
   @PutMapping("/{id}")
   @Transactional
   public ResponseEntity<TopicResponseDto> updateTopic(@PathVariable Long id,
-      @RequestBody UpdateTopicDto updateTopicDto) {
+      @RequestBody TopicUpdateDto updateTopicDto) {
 
     Topic topic = topicService.updateTopic(id, updateTopicDto);
 
