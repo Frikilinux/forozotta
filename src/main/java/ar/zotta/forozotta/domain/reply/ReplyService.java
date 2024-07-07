@@ -1,10 +1,12 @@
 package ar.zotta.forozotta.domain.reply;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.zotta.forozotta.domain.reply.validation.ReplyValidation;
 import ar.zotta.forozotta.domain.topic.Topic;
 import ar.zotta.forozotta.domain.topic.TopicRepository;
 import ar.zotta.forozotta.domain.user.User;
@@ -23,7 +25,13 @@ public class ReplyService {
   @Autowired
   AuthService authService;
 
+  @Autowired
+  List<ReplyValidation<ReplyTopicDto>> replyTopicValidation;
+
   public Reply replyTopic(ReplyTopicDto replyTopicDto) {
+
+    replyTopicValidation.forEach(rtv -> rtv.validate(replyTopicDto));
+
     Optional<Topic> topic = topicRepository.findById(replyTopicDto.topicId());
 
     User user = authService.getAutorizedUser();

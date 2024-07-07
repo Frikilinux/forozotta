@@ -11,7 +11,7 @@ import ar.zotta.forozotta.domain.topic.TopicRepository;
 import jakarta.validation.ValidationException;
 
 @Component
-public class DuplicatedTopic implements TopicValidation {
+public class DuplicatedTopic implements TopicValidation<TopicCreateDto> {
   @Autowired
   private TopicRepository topicRepository;
 

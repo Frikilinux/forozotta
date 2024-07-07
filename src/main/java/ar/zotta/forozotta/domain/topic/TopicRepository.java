@@ -14,7 +14,7 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
   @Query("SELECT t FROM Topic t WHERE t.id = :id")
   Optional<Topic> getTopicById(Long id);
 
-  @Query("SELECT t FROM Topic t WHERE t.title = :title AND t.message = :message")
+  @Query("SELECT 1 FROM Topic t WHERE t.title = :title AND t.message = :message")
   Optional<Topic> checkDuplicatedTopic(String title, String message);
 
   @Query("SELECT t FROM Topic t WHERE t.author.id = :userId")

@@ -32,13 +32,13 @@ public class TopicService {
   AuthService authService;
 
   @Autowired
-  List<TopicValidation> topicValidations;
+  List<TopicValidation<TopicCreateDto>> topicCreateValidations;
 
   public Topic createTopic(TopicCreateDto topic) {
 
     User user = authService.getAutorizedUser();
 
-    topicValidations.forEach(tv -> tv.validate(topic));
+    topicCreateValidations.forEach(tcv -> tcv.validate(topic));
 
     Topic response = topicRepository.save(new Topic(topic.title(), topic.message(), user));
 

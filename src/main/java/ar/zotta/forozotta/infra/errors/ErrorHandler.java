@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -39,9 +40,15 @@ public class ErrorHandler {
         .body(new ErrorResponseDto(HttpStatus.UNAUTHORIZED, e.getMessage()));
   }
 
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<ErrorResponseDto> badJson(HttpMessageNotReadableException e) {
+    return ResponseEntity.status(400)
+        .body(new ErrorResponseDto(HttpStatus.BAD_REQUEST, e.getMessage()));
+  }
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<List<ValidationResponseDto>> dataValidation(MethodArgumentNotValidException e) {
+  public ResponseEntity<ErrorListReponseDto> dataValidation(MethodArgumentNotValidException e) {
     List<ValidationResponseDto> errors = e.getFieldErrors().stream().map(ValidationResponseDto::new).toList();
-    return ResponseEntity.badRequest().body(errors);
+    return ResponseEntity.badRequest().body(new ErrorListReponseDto(HttpStatus.BAD_REQUEST, errors));
   }
 }

@@ -17,4 +17,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
   @Query("SELECT r FROM Reply r WHERE r.author.id = :userId")
   Optional<Page<Reply>> getUserReplies(Long userId, Pageable Pageable);
 
+  @Query("SELECT 1 FROM Reply r WHERE r.topic.id = :topicId AND r.message = :message")
+  Optional<Reply> checkDuplicatedReply(Long topicId, String message);
+
 }
