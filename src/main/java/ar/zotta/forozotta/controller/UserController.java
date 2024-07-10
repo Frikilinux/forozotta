@@ -22,9 +22,12 @@ import ar.zotta.forozotta.domain.user.User;
 import ar.zotta.forozotta.domain.user.UserResponseDto;
 import ar.zotta.forozotta.domain.user.UserService;
 import ar.zotta.forozotta.domain.user.UserTopicListResponseDto;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Usuarios")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -32,6 +35,7 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @Operation(summary = "Registra un nuevo usuario.")
   @SecurityRequirement(name = "bearer-key")
   @PostMapping
   public ResponseEntity<UserResponseDto> registerUser(@RequestBody @Valid UserRegisterDto registerUserDto,
@@ -44,16 +48,7 @@ public class UserController {
     return ResponseEntity.created(uri).body(new UserResponseDto(user));
   }
 
-  // @GetMapping("/{id}/topics")
-  // public ResponseEntity<List<UserTopicListResponseDto>>
-  // getUserTopics(@PathVariable Long id) {
-
-  // List<Topic> topics = userService.getUserTopics(id);
-
-  // return
-  // ResponseEntity.ok(topics.stream().map(UserTopicListResponseDto::new).toList());
-  // }
-
+  @Operation(summary = "Devuelve los tópicos de un usuario.")
   @GetMapping("/{id}/topics")
   public ResponseEntity<Page<UserTopicListResponseDto>> getUserTopics(@PathVariable Long id, Pageable pageable) {
 
@@ -62,6 +57,7 @@ public class UserController {
     return ResponseEntity.ok(topics.map(UserTopicListResponseDto::new));
   }
 
+  @Operation(summary = "Devuelve las respuestas de un usuario.")
   @GetMapping("/{id}/replies")
   public ResponseEntity<Page<UserRepliesListResponseDto>> getUserReplies(@PathVariable Long id, Pageable pageable) {
 

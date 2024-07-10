@@ -24,10 +24,13 @@ import ar.zotta.forozotta.domain.topic.TopicResponseDto;
 import ar.zotta.forozotta.domain.topic.TopicService;
 import ar.zotta.forozotta.domain.topic.TopicUpdateDto;
 import ar.zotta.forozotta.domain.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
+@Tag(name = "Tópicos")
 @RestController
 @RequestMapping("/topics")
 public class TopicController {
@@ -38,6 +41,7 @@ public class TopicController {
   @Autowired
   UserService userService;
 
+  @Operation(summary = "Crea un tópico nuevo.")
   @SecurityRequirement(name = "bearer-key")
   @PostMapping
   public ResponseEntity<TopicCreateResponseDto> createTopic(@RequestBody @Valid TopicCreateDto createTopicDto,
@@ -53,6 +57,7 @@ public class TopicController {
     return ResponseEntity.created(uri).body(topicCreateResponseDto);
   }
 
+  @Operation(summary = "Devuelve todos los tópicos.")
   @GetMapping
   public ResponseEntity<Page<TopicListResponseDto>> getTopics(Pageable pageable) {
 
@@ -61,6 +66,7 @@ public class TopicController {
     return ResponseEntity.ok(topics.map(TopicListResponseDto::new));
   }
 
+  @Operation(summary = "Devuelve un tópico con ese id.")
   @GetMapping("/{id}")
   public ResponseEntity<TopicResponseDto> getTopicById(@PathVariable Long id) {
 
@@ -70,6 +76,7 @@ public class TopicController {
 
   }
 
+  @Operation(summary = "Modifica un tópico existente.")
   @SecurityRequirement(name = "bearer-key")
   @PutMapping("/{id}")
   @Transactional
@@ -82,6 +89,7 @@ public class TopicController {
   }
 
   // Hard delete
+  @Operation(summary = "Elimina un tópico (hard delete).")
   @SecurityRequirement(name = "bearer-key")
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> deleteTopic(@PathVariable Long id) {
