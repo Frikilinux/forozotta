@@ -39,6 +39,7 @@ public class SecurityConfig {
             .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated());
 
+    // httpSecurity.cors(cors -> cors.disable());
     httpSecurity.addFilterBefore(exceptionHandlerFilter, UsernamePasswordAuthenticationFilter.class);
     httpSecurity.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
