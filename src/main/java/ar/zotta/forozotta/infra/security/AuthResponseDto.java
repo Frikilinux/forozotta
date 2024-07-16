@@ -5,9 +5,14 @@ import java.util.Date;
 
 import ar.zotta.forozotta.domain.user.User;
 
-public record AuthResponseDto(Long id, String email, String access_token, String token_type,
+public record AuthResponseDto(
+    Long id, String email,
+    String name,
+    String access_token, String token_type,
     LocalDateTime expires_date) {
+
   public AuthResponseDto(User user, String token, Date espiresAt) {
-    this(user.getId(), user.getEmail(), token, "Bearer", new java.sql.Timestamp(espiresAt.getTime()).toLocalDateTime());
+    this(user.getId(), user.getEmail(), user.getName(), token, "Bearer",
+        new java.sql.Timestamp(espiresAt.getTime()).toLocalDateTime());
   }
 }
