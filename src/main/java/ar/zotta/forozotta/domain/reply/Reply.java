@@ -1,6 +1,7 @@
 package ar.zotta.forozotta.domain.reply;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import ar.zotta.forozotta.domain.topic.Topic;
 import ar.zotta.forozotta.domain.user.User;
@@ -30,6 +31,7 @@ public class Reply {
   private LocalDateTime createdAt;
   private LocalDateTime modifiedAt;
   private Boolean solution;
+  private UUID uuid;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author_id")
@@ -49,6 +51,7 @@ public class Reply {
     this.createdAt = LocalDateTime.now();
     this.modifiedAt = LocalDateTime.now();
     this.solution = false;
+    this.uuid = UUID.randomUUID();
   }
 
   public void updateReply(ReplyUpdateDto replyUpdateDto) {

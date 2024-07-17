@@ -4,6 +4,7 @@ CREATE TABLE users(
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     active BOOLEAN NOT NULL,
+    uuid VARCHAR(36) NOT NULL,
 
     PRIMARY KEY(id)
 );
@@ -16,6 +17,7 @@ CREATE TABLE topics(
     modified_at DATETIME NOT NULL,
     author_id BIGINT NOT NULL,
     status BOOLEAN NOT NULL DEFAULT FALSE,
+    uuid VARCHAR(36) NOT NULL,
 
     PRIMARY KEY(id),
     CONSTRAINT fk_topics_author_id FOREIGN KEY(author_id) REFERENCES users(id)
@@ -29,6 +31,7 @@ CREATE TABLE replies(
     author_id BIGINT NOT NULL,
     topic_id BIGINT NOT NULL,
     solution BOOLEAN NOT NULL DEFAULT FALSE,
+    uuid VARCHAR(36) NOT NULL,
 
     PRIMARY KEY(id),
     CONSTRAINT fk_replies_author_id FOREIGN KEY(author_id) REFERENCES users(id),

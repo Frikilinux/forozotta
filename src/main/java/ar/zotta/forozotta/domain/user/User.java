@@ -2,6 +2,7 @@ package ar.zotta.forozotta.domain.user;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,13 +32,16 @@ public class User implements UserDetails {
   private String name;
   private String email;
   private String password;
+  private UUID uuid;
 
   private Boolean active = true;
+
   // private String profiles;
 
   public User(UserRegisterDto registerUserDto) {
     this.name = registerUserDto.name();
     this.email = registerUserDto.email();
+    this.uuid = UUID.randomUUID();
     // this.password = registerUserDto.password();
     // this.active = true;
   }
