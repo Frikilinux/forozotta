@@ -31,7 +31,7 @@ public class Reply {
   private LocalDateTime createdAt;
   private LocalDateTime modifiedAt;
   private Boolean solution;
-  private UUID uuid;
+  private String uuid;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author_id")
@@ -51,7 +51,7 @@ public class Reply {
     this.createdAt = LocalDateTime.now();
     this.modifiedAt = LocalDateTime.now();
     this.solution = false;
-    this.uuid = UUID.randomUUID();
+    this.uuid = UUID.randomUUID().toString();
   }
 
   public void updateReply(ReplyUpdateDto replyUpdateDto) {

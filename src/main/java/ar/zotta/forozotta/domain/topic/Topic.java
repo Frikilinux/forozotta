@@ -34,7 +34,7 @@ public class Topic {
   private LocalDateTime createdAt;
   private LocalDateTime modifiedAt;
   private Boolean status;
-  private UUID uuid;
+  private String uuid;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author_id")
@@ -53,7 +53,7 @@ public class Topic {
     this.createdAt = LocalDateTime.now();
     this.modifiedAt = LocalDateTime.now();
     this.status = true;
-    this.uuid = UUID.randomUUID();
+    this.uuid = UUID.randomUUID().toString();
   }
 
   public void updateTopic(TopicUpdateDto updateTopicDto) {

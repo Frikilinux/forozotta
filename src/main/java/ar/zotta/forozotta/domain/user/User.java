@@ -32,7 +32,7 @@ public class User implements UserDetails {
   private String name;
   private String email;
   private String password;
-  private UUID uuid;
+  private String uuid;
 
   private Boolean active = true;
 
@@ -41,7 +41,7 @@ public class User implements UserDetails {
   public User(UserRegisterDto registerUserDto) {
     this.name = registerUserDto.name();
     this.email = registerUserDto.email();
-    this.uuid = UUID.randomUUID();
+    this.uuid = UUID.randomUUID().toString();
     // this.password = registerUserDto.password();
     // this.active = true;
   }
