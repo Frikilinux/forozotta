@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import ar.zotta.forozotta.domain.user.UserResponseDto;
 
 public record TopicListResponseDto(Long id, String title, Integer repliesCount, UserResponseDto author,
-    LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    LocalDateTime createdAt, LocalDateTime modifiedAt, String uuid) {
   public TopicListResponseDto(Topic topic) {
     this(topic.getId(), topic.getTitle(), topic.getReplies().size(), new UserResponseDto(topic.getAuthor()),
-        topic.getCreatedAt(), topic.getModifiedAt());
+        topic.getCreatedAt(), topic.getModifiedAt(), topic.getUuid());
   }
 }
