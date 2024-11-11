@@ -21,6 +21,7 @@ public class SpringDocConfiguration {
                 .scheme("bearer")
                 .bearerFormat("JWT")))
         .info(new Info()
+            .version("1.0")
             .title("ForoHub | Oracle Next Education - Alura")
             .description(
                 "API Rest ForoHub | Oracle Next Education - Alura")
